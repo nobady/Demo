@@ -7,9 +7,8 @@ def loadProperties(){
     def loadFile = file("../gradle.properties")
     java.util.Properties p = new Properties()
 
-    loadFile.withInputStream {
-        p.load(it)
-    }
+    p.load(new FileInputStream(loadFile))
+
     appReleaseDir = p.appReleaseDir
 }
 
@@ -70,13 +69,13 @@ android {
 
                 outDir = OUTDIR
 
-                newName = 'demo-v'+APP_VERSION+'-'+variant.productFlavors[0].name + '-release.apk'
+                newName = APP_NAME+'V-'+APP_VERSION+'-'+variant.productFlavors[0].name +'-'+timeNow+'-'+ variant.buildType.name+'.apk'
             }else {
                 timeNow = getDate()
 
                 outDir = oldFile.getPath()
 
-                newName = 'demo-v'+APP_VERSION+'-'+variant.productFlavors[0].name + '-'+variant.buildType.name+'.apk'
+                newName = APP_NAME+'V-'+APP_VERSION+'-'+variant.productFlavors[0].name + '-'+timeNow+'-'+variant.buildType.name+'.apk'
             }
            /* if(variant.buildType.name.equals('release')){
                 // APK输出文件名规则：aiyou-版本名-市场-release.apk
